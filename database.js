@@ -1,0 +1,71 @@
+Mostrar diferencia
+Cargando vista previa...
+skeleton-preset-corteza
+Un tema moderno y distintivo para marcas sostenibles, compatible con OS 2.0 importar sqlite3 desde 'sqlite3'; importar { open } de 'sqlite';
+
+export función asíncrona openDb() { return open({ nombre de archivo: './database.sqlite', Controlador: SQLite3. Base de datos }); }
+
+export función asíncrona initDb() { const db = esperar openDb(); await db.exec(); await db.close(); }CREATE TABLE IF NOT EXISTS zonas ( id INTEGER PRIMARY KEY AUTOINCREMENT, tienda TEXT, zona_colonia TEXT, ciudad_estado TEXT, giro_negocio TEXT, ubicacion_exacta TEXT, nivel_competencia TEXT, publico_objetivo TEXT, rango_precios TEXT, trafico_personas TEXT, anuncios_entrelazados TEXT, app_activa TEXT, privacidad TEXT, consentimiento_datos TEXT, fecha_actualizacion TEXT )
+
+export función asíncrona getZonas(shop) { const db = esperar openDb(); const zonas = await db.all('SELECT * FROM zonas WHERE tienda = ?', [tienda]); await db.close(); zonas de regreso; }
+
+export async function saveZona(shop, zona) { const db = esperar openDb(); const { zona_colonia, ciudad_estado, giro_negocio, ubicacion_exacta, nivel_competencia, publico_objetivo, rango_precios, trafico_personas, anuncios_entrelazados, app_activa, privacidad, consentimiento_datos } = zona; const resultado = await db.run( , [ tienda zona_colonia, ciudad_estado, giro_negocio, ubicacion_exacta, nivel_competencia, publico_objetivo, rango_precios, trafico_personas, anuncios_entrelazados, app_activa, privacidad, consentimiento_datos, new Date().toISOString() ] );// web/database.js importar sqlite3 desde 'sqlite3'; importar { open } de 'sqlite';INSERT INTO zonas ( tienda, zona_colonia, ciudad_estado, giro_negocio, ubicacion_exacta, nivel_competencia, publico_objetivo, rango_precios, trafico_personas, anuncios_entrelazados, app_activa, privacidad, consentimiento_datos, fecha_actualizacion ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+export función asíncrona openDb() { return open({ nombre de archivo: './database.sqlite', Controlador: SQLite3. Base de datos }); }
+
+export función asíncrona initDb() { const db = esperar openDb(); await db.exec(); await db.close(); }CREATE TABLE IF NOT EXISTS zonas ( id INTEGER PRIMARY KEY AUTOINCREMENT, tienda TEXT, zona_colonia TEXT, ciudad_estado TEXT, giro_negocio TEXT, ubicacion_exacta TEXT, nivel_competencia TEXT, publico_objetivo TEXT, rango_precios TEXT, trafico_personas TEXT, anuncios_entrelazados TEXT, app_activa TEXT, privacidad TEXT, consentimiento_datos TEXT, fecha_actualizacion TEXT );
+
+export función asíncrona getZonas(shop) { const db = esperar openDb(); const zonas = await db.all('SELECT * FROM zonas WHERE tienda = ?', [tienda]); await db.close(); zonas de regreso; }
+
+export async function saveZona(shop, zona) { const db = esperar openDb(); const { zona_colonia, ciudad_estado, giro_negocio, ubicacion_exacta, nivel_competencia, publico_objetivo, rango_precios, trafico_personas, anuncios_entrelazados, app_activa, privacidad, consentimiento_datos } = zona;
+
+const resultado = await db.run(, [ tienda zona_colonia, ciudad_estado, giro_negocio, ubicacion_exacta, nivel_competencia, publico_objetivo, rango_precios, trafico_personas, anuncios_entrelazados, app_activa, privacidad, consentimiento_datos, new Date().toISOString() ]);INSERT INTO zonas ( tienda, zona_colonia, ciudad_estado, giro_negocio, ubicacion_exacta, nivel_competencia, publico_objetivo, rango_precios, trafico_personas, anuncios_entrelazados, app_activa, privacidad, consentimiento_datos, fecha_actualizacion ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+await db.close(); devuelve resultado.lastID; } await db.close(); devuelve resultado.lastID; }# skeleton-preset-corteza
+Un tema moderno y distintivo para marcas sostenibles, compatible con OS 2.0
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
+
+export async function openDb() {
+  return open({
+    filename: './database.sqlite',
+    driver: sqlite3.Database
+  });
+}
+
+export async function initDb() {
+  const db = await openDb();
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS zonas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      tienda TEXT,
+      zona_colonia TEXT,
+      ciudad_estado TEXT,
+      giro_negocio TEXT,
+      ubicacion_exacta TEXT,
+      nivel_competencia TEXT,
+      publico_objetivo TEXT,
+      rango_precios TEXT,
+      trafico_personas TEXT,
+      anuncios_entrelazados TEXT,
+      app_activa TEXT,
+      privacidad TEXT,
+      consentimiento_datos TEXT,
+      fecha_actualizacion TEXT
+    )
+  `);
+  await db.close();
+}
+
+export async function getZonas(shop) {
+  const db = await openDb();
+  const zonas = await db.all('SELECT * FROM zonas WHERE tienda = ?', [shop]);
+  await db.close();
+  return zonas;
+}
+
+export async function saveZona(shop, zona) {
+  const db = await openDb();
+  const {
+    zona_colonia,
+    ciudad_estado,
